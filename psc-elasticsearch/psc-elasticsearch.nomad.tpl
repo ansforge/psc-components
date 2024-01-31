@@ -13,12 +13,12 @@ job "elasticsearch-csi" {
     count = 1
 
 // Volume portworx CSI
-    volume "secpsc-preprod-elasticsearch-with-plugin" {
+    volume "secpsc-preprod-elasticsearch" {
       attachment_mode = "file-system"
       access_mode     = "single-node-writer"
       type            = "csi"
       read_only       = false
-      source          = "vs-secpsc-preprod-elasticsearch-with-plugin"
+      source          = "vs-secpsc-preprod-elasticsearch"
     }
 
     constraint {
@@ -30,7 +30,7 @@ job "elasticsearch-csi" {
       attribute = "${attr.os.version}"
       value     = "8.8"
     }
-    
+
     network {
       port "es" { to = 9200 }
       port "ed" { to = 9300 }
@@ -40,7 +40,7 @@ job "elasticsearch-csi" {
 //   "name=${nomad_namespace}-elasticsearch-with-plugin,io_priority=high,size=20,repl=2:/usr/share/elasticsearch/data"
 // Monter le volume portworx CSI
       volume_mount {
-        volume      = "secpsc-preprod-elasticsearch-with-plugin"
+        volume      = "secpsc-preprod-elasticsearch"
         destination = "/usr/share/elasticsearch/data"
         read_only   = false
       }
