@@ -12,7 +12,7 @@ job "elasticsearch-csi" {
   group "elasticsearch" {
     count = 1
 
-// Volume portworx CSI
+    // Volume portworx CSI
     volume "secpsc-preprod-elasticsearch" {
       attachment_mode = "file-system"
       access_mode     = "single-node-writer"
@@ -37,8 +37,8 @@ job "elasticsearch-csi" {
     }
     task "elasticsearch" {
       driver = "docker"
-//   "name=${nomad_namespace}-elasticsearch-with-plugin,io_priority=high,size=20,repl=2:/usr/share/elasticsearch/data"
-// Monter le volume portworx CSI
+
+      // Monter le volume portworx CSI
       volume_mount {
         volume      = "secpsc-preprod-elasticsearch"
         destination = "/usr/share/elasticsearch/data"

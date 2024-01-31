@@ -11,6 +11,22 @@ job "psc-mongodb" {
   group "psc-mongodb" {
     count = 1
 
+    // Volume portworx CSI
+    volume "secpsc-preprod-psc-mongodb" {
+      attachment_mode = "file-system"
+      access_mode     = "single-node-writer"
+      type            = "csi"
+      read_only       = false
+      source          = "vs-secpsc-preprod-psc-mongodb"
+    }
+    volume "secpsc-preprod-psc-mongodb-config" {
+      attachment_mode = "file-system"
+      access_mode     = "single-node-writer"
+      type            = "csi"
+      read_only       = false
+      source          = "vs-secpsc-preprod-psc-mongodb-config"
+    }
+
     restart {
       attempts = 3
       delay = "60s"
@@ -29,6 +45,19 @@ job "psc-mongodb" {
 
     task "psc-mongodb" {
       driver = "docker"
+      
+      // Monter le volume portworx CSI 
+      volume_mount {
+        volume      = "secpsc-preprod-psc-mongodb"
+        destination = "/data/db"
+        read_only   = false
+      }
+      volume_mount {
+        volume      = "secpsc-preprod-psc-mongodb-config"
+        destination = "/data/configdb"
+        read_only   = false
+      }
+
       template {
         data = <<EOH
           MONGO_INITDB_ROOT_USERNAME = {{ with secret "psc-ecosystem/${nomad_namespace}/mongodb" }}{{ .Data.data.root_user }}{{ end }}
