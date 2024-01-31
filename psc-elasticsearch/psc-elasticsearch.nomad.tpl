@@ -1,4 +1,4 @@
-job "elasticsearch" {
+job "elasticsearch-csi" {
 
   type = "service"
   datacenters = ["${datacenter}"]
@@ -11,16 +11,39 @@ job "elasticsearch" {
 
   group "elasticsearch" {
     count = 1
+
+// Volume portworx CSI
+    volume "secpsc-preprod-elasticsearch-with-plugin" {
+      attachment_mode = "file-system"
+      access_mode     = "single-node-writer"
+      type            = "csi"
+      read_only       = false
+      source          = "vs-secpsc-preprod-elasticsearch-with-plugin"
+    }
+
     constraint {
       attribute = "$\u007Bnode.class\u007D"
       value     = "data"
     }
+
+    constraint {
+      attribute = "${attr.os.version}"
+      value     = "8.8"
+    }
+    
     network {
       port "es" { to = 9200 }
       port "ed" { to = 9300 }
     }
     task "elasticsearch" {
       driver = "docker"
+//   "name=${nomad_namespace}-elasticsearch-with-plugin,io_priority=high,size=20,repl=2:/usr/share/elasticsearch/data"
+// Monter le volume portworx CSI
+      volume_mount {
+        volume      = "secpsc-preprod-elasticsearch-with-plugin"
+        destination = "/usr/share/elasticsearch/data"
+        read_only   = false
+      }
 
       template {
         change_mode = "noop"
@@ -50,9 +73,9 @@ EOF
       config {
         image = "${image}:${tag}"
         ports = ["es", "ed"]
-        volumes = [
-          "name=${nomad_namespace}-elasticsearch-with-plugin,io_priority=high,size=20,repl=2:/usr/share/elasticsearch/data"
-        ]
+        // volumes = [
+        //   "name=${nomad_namespace}-elasticsearch-with-plugin,io_priority=high,size=20,repl=2:/usr/share/elasticsearch/data"
+        // ]
         volume_driver = "pxd"
 
         mount {
