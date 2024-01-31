@@ -26,11 +26,6 @@ job "elasticsearch-csi" {
       value     = "data"
     }
 
-    constraint {
-      attribute = "${attr.os.version}"
-      value     = "8.8"
-    }
-
     network {
       port "es" { to = 9200 }
       port "ed" { to = 9300 }
