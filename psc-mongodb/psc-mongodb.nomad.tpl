@@ -1,4 +1,4 @@
-job "psc-mongodb" {
+job "psc-mongodb-csi" {
   datacenters = ["${datacenter}"]
   type = "service"
   namespace = "${nomad_namespace}"
