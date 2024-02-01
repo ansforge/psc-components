@@ -52,8 +52,18 @@ job "psc-mongodb-csi" {
 
     task "psc-mongodb" {
       driver = "docker"
-      
 
+      // Monter le volume portworx CSI 
+      volume_mount {
+        volume      = "secpsc-preprod-psc-mongodb"
+        destination = "/data/db"
+        read_only   = false
+      }
+      volume_mount {
+        volume      = "secpsc-preprod-psc-mongodb-config"
+        destination = "/data/configdb"
+        read_only   = false
+      }
 
       template {
         data = <<EOH
@@ -70,17 +80,7 @@ job "psc-mongodb-csi" {
         // volumes = ["name=$\u007BNOMAD_NAMESPACE\u007D-psc-mongodb,fs=xfs,io_priority=high,size=8,repl=2:/data/db",
         //   "name=$\u007BNOMAD_NAMESPACE\u007D-psc-mongodb-config, fs=xfs, io_priority=high, size=1, repl=2:/data/configdb"]
         // volume_driver = "pxd"
-              // Monter le volume portworx CSI 
-        volume_mount {
-          volume      = "secpsc-preprod-psc-mongodb"
-          destination = "/data/db"
-          read_only   = false
-        }
-        volume_mount {
-          volume      = "secpsc-preprod-psc-mongodb-config"
-          destination = "/data/configdb"
-          read_only   = false
-        }
+
 
       }
       resources {
