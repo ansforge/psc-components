@@ -17,7 +17,7 @@ job "psc-mongodb-csi" {
       access_mode     = "single-node-writer"
       type            = "csi"
       read_only       = false
-      source          = "volume_secpsc_preprod_psc_mongodb"
+      source          = "secpsc_preprod_psc_mongodb"
     }
     // volume "secpsc-preprod-psc-mongodb-config" {
     //   attachment_mode = "file-system"
