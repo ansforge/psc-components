@@ -12,26 +12,20 @@ job "psc-mongodb-csi" {
     count = 1
 
     // Volume portworx CSI
-    volume "secpsc-preprod-psc-mongodb" {
+    volume "secpsc_preprod_psc_mongodb" {
       attachment_mode = "file-system"
       access_mode     = "single-node-writer"
       type            = "csi"
       read_only       = false
-      source          = "vs-secpsc-preprod-psc-mongodb"
-      // parameters = {
-      //   io_priority = "high"
-      // }
+      source          = "volume_secpsc_preprod_psc_mongodb"
     }
-    volume "secpsc-preprod-psc-mongodb-config" {
-      attachment_mode = "file-system"
-      access_mode     = "single-node-writer"
-      type            = "csi"
-      read_only       = false
-      source          = "vs-secpsc-preprod-psc-mongodb-config"
-      // parameters = {
-      //   io_priority = "high"
-      // }
-    }
+    // volume "secpsc-preprod-psc-mongodb-config" {
+    //   attachment_mode = "file-system"
+    //   access_mode     = "single-node-writer"
+    //   type            = "csi"
+    //   read_only       = false
+    //   source          = "vs-secpsc-preprod-psc-mongodb-config"
+    // }
 
     restart {
       attempts = 3
@@ -55,15 +49,15 @@ job "psc-mongodb-csi" {
 
       // Monter le volume portworx CSI 
       volume_mount {
-        volume      = "secpsc-preprod-psc-mongodb"
+        volume      = "secpsc_preprod_psc_mongodb"
         destination = "/data/db"
         read_only   = false
       }
-      volume_mount {
-        volume      = "secpsc-preprod-psc-mongodb-config"
-        destination = "/data/configdb"
-        read_only   = false
-      }
+      // volume_mount {
+      //   volume      = "secpsc-preprod-psc-mongodb-config"
+      //   destination = "/data/configdb"
+      //   read_only   = false
+      // }
 
       template {
         data = <<EOH
