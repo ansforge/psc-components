@@ -18,6 +18,9 @@ job "psc-mongodb-csi" {
       type            = "csi"
       read_only       = false
       source          = "vs-secpsc-preprod-psc-mongodb"
+      // parameters = {
+      //   io_priority = "high"
+      // }
     }
     volume "secpsc-preprod-psc-mongodb-config" {
       attachment_mode = "file-system"
@@ -25,6 +28,9 @@ job "psc-mongodb-csi" {
       type            = "csi"
       read_only       = false
       source          = "vs-secpsc-preprod-psc-mongodb-config"
+      // parameters = {
+      //   io_priority = "high"
+      // }
     }
 
     restart {
@@ -71,9 +77,9 @@ job "psc-mongodb-csi" {
       config {
         image = "${image}:${tag}"
         ports = ["db"]
-        volumes = ["name=$\u007BNOMAD_NAMESPACE\u007D-psc-mongodb,fs=xfs,io_priority=high,size=8,repl=2:/data/db",
-          "name=$\u007BNOMAD_NAMESPACE\u007D-psc-mongodb-config, fs=xfs, io_priority=high, size=1, repl=2:/data/configdb"]
-        volume_driver = "pxd"
+        // volumes = ["name=$\u007BNOMAD_NAMESPACE\u007D-psc-mongodb,fs=xfs,io_priority=high,size=8,repl=2:/data/db",
+        //   "name=$\u007BNOMAD_NAMESPACE\u007D-psc-mongodb-config, fs=xfs, io_priority=high, size=1, repl=2:/data/configdb"]
+        // volume_driver = "pxd"
       }
       resources {
         cpu    = 500
