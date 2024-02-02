@@ -24,7 +24,7 @@ job "psc-mongodb" {
       access_mode     = "single-node-writer"
       type            = "csi"
       read_only       = false
-      source          = "vs-${nomad_namespace}-mongodb-config"
+      source          = "vs-${nomad_namespace}-psc-mongodb-config"
     }
 
     restart {
