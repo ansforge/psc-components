@@ -13,12 +13,12 @@ job "elasticsearch-csi" {
     count = 1
 
     // Volume portworx CSI
-    volume "secpsc-preprod-elasticsearch" {
+    volume "elasticsearch" {
       attachment_mode = "file-system"
       access_mode     = "single-node-writer"
       type            = "csi"
       read_only       = false
-      source          = "vs-secpsc-preprod-elasticsearch"
+      source          = "vs-${nomad_namespace}-psc-elasticsearch"
     }
 
     constraint {
@@ -35,7 +35,7 @@ job "elasticsearch-csi" {
 
       // Monter le volume portworx CSI
       volume_mount {
-        volume      = "secpsc-preprod-elasticsearch"
+        volume      = "elasticsearch"
         destination = "/usr/share/elasticsearch/data"
         read_only   = false
       }
@@ -68,10 +68,6 @@ EOF
       config {
         image = "${image}:${tag}"
         ports = ["es", "ed"]
-        // volumes = [
-        //   "name=${nomad_namespace}-elasticsearch-with-plugin,io_priority=high,size=20,repl=2:/usr/share/elasticsearch/data"
-        // ]
-        volume_driver = "pxd"
 
         mount {
           type = "bind"

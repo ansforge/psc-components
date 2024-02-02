@@ -1,4 +1,4 @@
-job "psc-mongodb-csi" {
+job "psc-mongodb" {
   datacenters = ["${datacenter}"]
   type = "service"
   namespace = "${nomad_namespace}"
@@ -12,20 +12,20 @@ job "psc-mongodb-csi" {
     count = 1
 
     // Volume portworx CSI
-    volume "secpsc_preprod_psc_mongodb" {
+    volume "mongodb" {
       attachment_mode = "file-system"
       access_mode     = "single-node-writer"
       type            = "csi"
       read_only       = false
-      source          = "volume_secpsc_preprod_psc_mongodb"
+      source          = "vs-${nomad_namespace}-psc-mongodb"
     }
-    // volume "secpsc-preprod-psc-mongodb-config" {
-    //   attachment_mode = "file-system"
-    //   access_mode     = "single-node-writer"
-    //   type            = "csi"
-    //   read_only       = false
-    //   source          = "vs-secpsc-preprod-psc-mongodb-config"
-    // }
+    volume "mongodb-config" {
+      attachment_mode = "file-system"
+      access_mode     = "single-node-writer"
+      type            = "csi"
+      read_only       = false
+      source          = "vs-${nomad_namespace}-mongodb-config"
+    }
 
     restart {
       attempts = 3
@@ -49,15 +49,15 @@ job "psc-mongodb-csi" {
 
       // Monter le volume portworx CSI 
       volume_mount {
-        volume      = "secpsc_preprod_psc_mongodb"
+        volume      = "mongodb"
         destination = "/data/db"
         read_only   = false
       }
-      // volume_mount {
-      //   volume      = "secpsc-preprod-psc-mongodb-config"
-      //   destination = "/data/configdb"
-      //   read_only   = false
-      // }
+      volume_mount {
+        volume      = "mongodb-config"
+        destination = "/data/configdb"
+        read_only   = false
+      }
 
       template {
         data = <<EOH
@@ -71,11 +71,6 @@ job "psc-mongodb-csi" {
       config {
         image = "${image}:${tag}"
         ports = ["db"]
-        // volumes = ["name=$\u007BNOMAD_NAMESPACE\u007D-psc-mongodb,fs=xfs,io_priority=high,size=8,repl=2:/data/db",
-        //   "name=$\u007BNOMAD_NAMESPACE\u007D-psc-mongodb-config, fs=xfs, io_priority=high, size=1, repl=2:/data/configdb"]
-        // volume_driver = "pxd"
-
-
       }
       resources {
         cpu    = 500

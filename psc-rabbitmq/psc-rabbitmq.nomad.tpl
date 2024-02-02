@@ -17,14 +17,13 @@ job "psc-rabbitmq" {
 
   group "psc-rabbitmq" {
     count = 1
-
     // Volume portworx CSI
-    volume "secpsc-preprod-rabbitmq" {
+    volume "rabbitmq" {
       attachment_mode = "file-system"
       access_mode     = "single-node-writer"
       type            = "csi"
       read_only       = false
-      source          = "vs-secpsc-preprod-rabbitmq"
+      source          = "vs-${nomad_namespace}-rabbitmq"
     }
 
     restart {
@@ -50,7 +49,7 @@ job "psc-rabbitmq" {
 
       // Monter le volume portworx CSI 
       volume_mount {
-        volume      = "secpsc-preprod-raabbitmq"
+        volume      = "rabbitmq"
         destination = "/data/db"
         read_only   = false
       } 
@@ -59,24 +58,6 @@ job "psc-rabbitmq" {
         image = "${image}:${tag}"
         ports = ["endpoint","management","metrics"]
         hostname = "psc-rabbitmq"
-
-        // mount {
-        //   type = "volume"
-        //   target = "/var/lib/rabbitmq"
-        //   source = "${nomad_namespace}-rabbitmq"
-        //   readonly = false
-        //   volume_options {
-        //     no_copy = false
-        //     driver_config {
-        //       name = "pxd"
-        //       options {
-        //         io_priority = "high"
-        //         size = 5
-        //         repl = 2
-        //       }
-        //     }
-        //   }
-        // }
 
         mount {
           type = "bind"
