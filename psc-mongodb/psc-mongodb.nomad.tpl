@@ -34,10 +34,10 @@ job "psc-mongodb" {
       mode = "fail"
     }
 
-    // constraint {
-    //   attribute = "$\u007Bnode.class\u007D"
-    //   value     = "data"
-    // }
+    affinity {
+      attribute = "$\u007Bnode.class\u007D"
+      value     = "compute"
+    }
 
 
     network {

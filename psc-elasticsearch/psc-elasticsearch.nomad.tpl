@@ -21,9 +21,9 @@ job "elasticsearch-csi" {
       source          = "vs-${nomad_namespace}-psc-elasticsearch"
     }
 
-    constraint {
+    affinity {
       attribute = "$\u007Bnode.class\u007D"
-      value     = "data"
+      value     = "compute"
     }
 
     network {

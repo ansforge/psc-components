@@ -9,6 +9,11 @@ job "elasticsearch-cleanup" {
   group "es-cleanup" {
     count = 1
 
+    affinity {
+      attribute = "$\u007Bnode.class\u007D"
+      value     = "compute"
+    }
+
     task "free-space" {
       driver = "docker"
       config {
