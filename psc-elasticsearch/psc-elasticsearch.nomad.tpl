@@ -1,4 +1,4 @@
-job "elasticsearch-csi" {
+job "elasticsearch" {
 
   type = "service"
   datacenters = ["${datacenter}"]
