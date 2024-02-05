@@ -50,7 +50,7 @@ job "psc-rabbitmq" {
       // Monter le volume portworx CSI 
       volume_mount {
         volume      = "rabbitmq"
-        destination = "/data/db"
+        destination = "/var/lib/rabbitmq"
         read_only   = false
       } 
 
