@@ -11,6 +11,11 @@ job "psc-mongo-express" {
   group "psc-mongo-express" {
     count = 1
 
+    affinity {
+      attribute = "$\u007Bnode.class\u007D"
+      value     = "compute"
+    }
+
     restart {
       attempts = 3
       delay = "60s"

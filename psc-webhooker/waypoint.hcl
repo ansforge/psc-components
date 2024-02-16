@@ -7,7 +7,7 @@ runner {
   enabled = true
   profile = "secpsc-${workspace.name}"
   data_source "git" {
-    url = "https://github.com/prosanteconnect/psc-ecosystem-components.git"
+    url = "https://github.com/ansforge/psc-components.git"
     path = "psc-webhooker"
     ignore_changes_outside_path = true
     ref = "${workspace.name}"
