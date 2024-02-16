@@ -46,6 +46,12 @@ EOH
       driver = "docker"
       config {
         image = "${image}:${tag}"
+
+      affinity {
+        attribute = "$\u007Bnode.class\u007D"
+        value     = "compute"
+      }
+
         command = "kibana"
         args = [
                "--config=/local/kibana.yml"

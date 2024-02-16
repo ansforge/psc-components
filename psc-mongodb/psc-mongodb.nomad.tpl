@@ -11,6 +11,22 @@ job "psc-mongodb" {
   group "psc-mongodb" {
     count = 1
 
+    // Volume portworx CSI
+    volume "mongodb" {
+      attachment_mode = "file-system"
+      access_mode     = "single-node-writer"
+      type            = "csi"
+      read_only       = false
+      source          = "vs-${nomad_namespace}-psc-mongodb"
+    }
+    volume "mongodb-config" {
+      attachment_mode = "file-system"
+      access_mode     = "single-node-writer"
+      type            = "csi"
+      read_only       = false
+      source          = "vs-${nomad_namespace}-psc-mongodb-config"
+    }
+
     restart {
       attempts = 3
       delay = "60s"
@@ -18,10 +34,11 @@ job "psc-mongodb" {
       mode = "fail"
     }
 
-    constraint {
+    affinity {
       attribute = "$\u007Bnode.class\u007D"
-      value     = "data"
+      value     = "compute"
     }
+
 
     network {
       port "db" { to = 27017 }
@@ -29,6 +46,19 @@ job "psc-mongodb" {
 
     task "psc-mongodb" {
       driver = "docker"
+
+      // Monter le volume portworx CSI 
+      volume_mount {
+        volume      = "mongodb"
+        destination = "/data/db"
+        read_only   = false
+      }
+      volume_mount {
+        volume      = "mongodb-config"
+        destination = "/data/configdb"
+        read_only   = false
+      }
+
       template {
         data = <<EOH
           MONGO_INITDB_ROOT_USERNAME = {{ with secret "psc-ecosystem/${nomad_namespace}/mongodb" }}{{ .Data.data.root_user }}{{ end }}
@@ -41,9 +71,6 @@ job "psc-mongodb" {
       config {
         image = "${image}:${tag}"
         ports = ["db"]
-        volumes = ["name=$\u007BNOMAD_NAMESPACE\u007D-psc-mongodb,fs=xfs,io_priority=high,size=8,repl=2:/data/db",
-          "name=$\u007BNOMAD_NAMESPACE\u007D-psc-mongodb-config, fs=xfs, io_priority=high, size=1, repl=2:/data/configdb"]
-        volume_driver = "pxd"
       }
       resources {
         cpu    = 500

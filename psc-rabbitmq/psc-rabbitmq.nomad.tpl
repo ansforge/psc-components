@@ -17,6 +17,14 @@ job "psc-rabbitmq" {
 
   group "psc-rabbitmq" {
     count = 1
+    // Volume portworx CSI
+    volume "rabbitmq" {
+      attachment_mode = "file-system"
+      access_mode     = "single-node-writer"
+      type            = "csi"
+      read_only       = false
+      source          = "vs-${nomad_namespace}-rabbitmq"
+    }
 
     restart {
       attempts = 3
@@ -25,9 +33,9 @@ job "psc-rabbitmq" {
       mode = "fail"
     }
 
-    constraint {
+    affinity {
       attribute = "$\u007Bnode.class\u007D"
-      value     = "data"
+      value     = "compute"
     }
 
     network {
@@ -38,27 +46,19 @@ job "psc-rabbitmq" {
 
     task "psc-rabbitmq" {
       driver = "docker"
+
+      // Monter le volume portworx CSI 
+      volume_mount {
+        volume      = "rabbitmq"
+        destination = "/var/lib/rabbitmq"
+        read_only   = false
+      } 
+
       config {
         image = "${image}:${tag}"
         ports = ["endpoint","management","metrics"]
         hostname = "psc-rabbitmq"
-        mount {
-          type = "volume"
-          target = "/var/lib/rabbitmq"
-          source = "${nomad_namespace}-rabbitmq"
-          readonly = false
-          volume_options {
-            no_copy = false
-            driver_config {
-              name = "pxd"
-              options {
-                io_priority = "high"
-                size = 5
-                repl = 2
-              }
-            }
-          }
-        }
+
         mount {
           type = "bind"
           target = "/etc/rabbitmq/conf.d/20-management.conf"

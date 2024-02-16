@@ -26,6 +26,12 @@ job "psc-alertmanager" {
 
     task "psc-alertmanager" {
       driver = "docker"
+
+      affinity {
+        attribute = "$\u007Bnode.class\u007D"
+        value     = "compute"
+      }
+
       config {
         image = "${image}:${tag}"
         volumes = [

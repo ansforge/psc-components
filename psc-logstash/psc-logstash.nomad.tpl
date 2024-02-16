@@ -14,6 +14,11 @@ job "logstash" {
     task "logstash" {
       driver = "docker"
 
+      affinity {
+        attribute = "$\u007Bnode.class\u007D"
+        value     = "compute"
+      }
+
       config {
         image = "${image}:${tag}"
         volumes = ["local:/usr/share/logstash/pipeline"]
