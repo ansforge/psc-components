@@ -15,6 +15,7 @@ job "kibana" {
       attribute = "$\u007Bnode.class\u007D"
       value     = "compute"
     }
+
     restart {
       attempts = 5
       interval = "5m"
