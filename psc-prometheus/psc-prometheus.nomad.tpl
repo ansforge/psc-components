@@ -12,6 +12,11 @@ job "psc-prometheus" {
   group "monitoring" {
     count = 1
 
+    affinity {
+      attribute = "$\u007Bnode.class\u007D"
+      value     = "compute"
+    }
+
     restart {
       attempts = 2
       interval = "30m"

@@ -11,16 +11,34 @@ job "elasticsearch" {
 
   group "elasticsearch" {
     count = 1
-    constraint {
-      attribute = "$\u007Bnode.class\u007D"
-      value     = "data"
+
+    // Volume portworx CSI
+    volume "elasticsearch" {
+      attachment_mode = "file-system"
+      access_mode     = "single-node-writer"
+      type            = "csi"
+      read_only       = false
+      source          = "vs-${nomad_namespace}-psc-elasticsearch"
     }
+
+    affinity {
+      attribute = "$\u007Bnode.class\u007D"
+      value     = "compute"
+    }
+
     network {
       port "es" { to = 9200 }
       port "ed" { to = 9300 }
     }
     task "elasticsearch" {
       driver = "docker"
+
+      // Monter le volume portworx CSI
+      volume_mount {
+        volume      = "elasticsearch"
+        destination = "/usr/share/elasticsearch/data"
+        read_only   = false
+      }
 
       template {
         change_mode = "noop"
@@ -50,10 +68,6 @@ EOF
       config {
         image = "${image}:${tag}"
         ports = ["es", "ed"]
-        volumes = [
-          "name=${nomad_namespace}-elasticsearch-with-plugin,io_priority=high,size=20,repl=2:/usr/share/elasticsearch/data"
-        ]
-        volume_driver = "pxd"
 
         mount {
           type = "bind"

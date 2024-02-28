@@ -7,12 +7,14 @@ job "kibana" {
     policies = ["psc-ecosystem"]
     change_mode = "restart"
   }
-  affinity {
-    attribute = "$\u007Bnode.class\u007D"
-    value = "standard"
-  }
+
   group "kibana" {
     count = 1
+
+    affinity {
+      attribute = "$\u007Bnode.class\u007D"
+      value     = "compute"
+    }
     restart {
       attempts = 5
       interval = "5m"
@@ -46,6 +48,7 @@ EOH
       driver = "docker"
       config {
         image = "${image}:${tag}"
+
         command = "kibana"
         args = [
                "--config=/local/kibana.yml"
