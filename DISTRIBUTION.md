@@ -8,6 +8,18 @@ Give this new distribution a semantic version number based on what changed (new 
 
 ## History
 
+### 1.0.1
+
+Hot fix on pscc-toggle-ids on 2024/04/04
+
+|Component|Version|
+|---------|-------|
+|psc-ps-api|`2.0.1`|
+|psc-amar-connector|`1.0.0`|
+|psc-toggle-manager|`0.0.2`|
+|psc-rass-loader|`1.0.0`|
+|psc-extract|`0.0.1`|
+
 ### 1.0.0
 
 First recorded distribution. This is the state of production as of March 01, 2024.
