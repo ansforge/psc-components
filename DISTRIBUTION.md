@@ -8,6 +8,18 @@ Give this new distribution a semantic version number based on what changed (new 
 
 ## History
 
+### 1.0.2
+
+Hot fix on psc-mongodb on 2024/04/10
+
+|Component|Version|
+|---------|-------|
+|psc-ps-api|`2.0.1`|
+|psc-amar-connector|`1.0.0`|
+|psc-toggle-manager|`0.0.2`|
+|psc-rass-loader|`1.0.0`|
+|psc-extract|`0.0.1`|
+
 ### 1.0.1
 
 Hot fix on pscc-toggle-ids on 2024/04/04
