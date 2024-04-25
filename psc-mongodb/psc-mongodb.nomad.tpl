@@ -73,8 +73,8 @@ job "psc-mongodb" {
         ports = ["db"]
       }
       resources {
-        cpu    = 500
-        memory = 1536
+        cpu    = 800
+        memory = 3072
       }
       service {
         name = "$\u007BNOMAD_NAMESPACE\u007D-$\u007BNOMAD_JOB_NAME\u007D"
