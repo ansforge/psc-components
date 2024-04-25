@@ -8,6 +8,20 @@ Give this new distribution a semantic version number based on what changed (new 
 
 ## History
 
+### 1.1.0
+
+Adding a sha256 digest to all archives produced by psc-extract to allow the downloader
+to check extract interity after downloading and unzipping it. Released on 2024/04/25.
+
+
+|Component|Version|
+|---------|-------|
+|psc-ps-api|`2.0.1`|
+|psc-amar-connector|`1.0.0`|
+|psc-toggle-manager|`0.0.2`|
+|psc-rass-loader|`1.0.1`|
+|psc-extract|`0.1.0`|
+
 ### 1.0.3
 
 Fix for psc-rass-loader on 2024/04/12
