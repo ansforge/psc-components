@@ -10,6 +10,8 @@ Give this new distribution a semantic version number based on what changed (new 
 
 ### 1.2.0
 
+**NB** : these version number and entry content are provisional,  as 1.2.0 has not been released yet, as of 2024/05/22
+
 This version adds the necessary change for the administration portal :
 - Using fixed prometheus & alertmanager version to be able to rely on alertmanager's v2 API.
 
