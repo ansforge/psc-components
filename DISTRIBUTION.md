@@ -8,6 +8,20 @@ Give this new distribution a semantic version number based on what changed (new 
 
 ## History
 
+### 1.0.4
+
+This version adds fixed prometheus & alertmanager version to be able to rely on alertmanager's v2 API.
+(no effective version change, we're just recording and stabilizing current versions)
+
+|Component|Version|
+|---------|-------|
+|psc-ps-api|`2.0.1`|
+|psc-amar-connector|`1.0.0`|
+|psc-toggle-manager|`0.0.2`|
+|psc-rass-loader|`1.0.1`|
+|psc-extract|`0.0.1`|
+
+
 ### 1.0.3
 
 Fix for psc-rass-loader on 2024/04/12
