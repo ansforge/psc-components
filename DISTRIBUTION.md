@@ -8,6 +8,19 @@ Give this new distribution a semantic version number based on what changed (new 
 
 ## History
 
+### 1.1.3
+
+This version deploys a fixed version of psc-amar-connector to avoid rejection PS with no first name create/update operations by AMAR. Released on 2024/07/12.
+
+|Component|Version|
+|---------|-------|
+|psc-ps-api|`2.0.1`|
+|psc-amar-connector|`1.0.2`|
+|psc-toggle-manager|`0.0.2`|
+|psc-rass-loader|`1.0.1`|
+|psc-extract|`0.1.0`|
+
+
 ### 1.1.2
 
 This version deploys a fixed version of psc-amar-connector to avoid rejection of some PS create/update operations by AMAR. Released on 2024/07/11.
