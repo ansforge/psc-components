@@ -18,10 +18,24 @@ This version adds the necessary change for the administration portal :
 |Component|Version|
 |---------|-------|
 |psc-ps-api|`2.0.1`|
-|psc-amar-connector|`1.0.2`|
+|psc-amar-connector|`1.0.3`|
 |psc-toggle-manager|`0.0.2`|
 |psc-rass-loader|`1.0.1`|
 |psc-extract|`0.1.0`|
+
+
+### 1.1.4
+
+This version deploys a fixed version of psc-amar-connector to properly replicate main identity data into otehrId identities in AMAR. Released on 2024/07/25.
+
+|Component|Version|
+|---------|-------|
+|psc-ps-api|`2.0.1`|
+|psc-amar-connector|`1.0.3`|
+|psc-toggle-manager|`0.0.2`|
+|psc-rass-loader|`1.0.1`|
+|psc-extract|`0.1.0`|
+
 
 ### 1.1.3
 
