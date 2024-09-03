@@ -30,8 +30,8 @@ job "kibana" {
       template {
                data = <<EOH
 server.name: kibana
-server.basePath: "/kibana"
-server.publicBaseUrl: "https://{{ with secret "psc-ecosystem/${nomad_namespace}/admin" }}{{ .Data.data.admin_public_hostname }}{{ end }}/kibana"
+server.basePath: "/portal/tool/kibana"
+server.publicBaseUrl: "https://{{ with secret "psc-ecosystem/${nomad_namespace}/admin-portal" }}{{ .Data.data.hostname }}{{ end }}/portal/tool/kibana"
 server.rewriteBasePath: true
 {{range service "${nomad_namespace}-elasticsearch" }}elasticsearch.hosts: [ "http://{{.Address}}:{{.Port}}" ]{{end}}
 server.host: "0.0.0.0"
@@ -65,7 +65,7 @@ EOH
         destination = "local/file.env"
         env = true
         data = <<EOF
-PUBLIC_HOSTNAME={{ with secret "psc-ecosystem/${nomad_namespace}/admin" }}{{ .Data.data.admin_public_hostname }}{{ end }}
+PUBLIC_HOSTNAME={{ with secret "psc-ecosystem/${nomad_namespace}/admin-portal" }}{{ .Data.data.hostname }}{{ end }}
 EOF
       }
       
