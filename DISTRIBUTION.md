@@ -22,6 +22,7 @@ This version adds the necessary change for the administration portal :
 |psc-toggle-manager|`0.0.2`|
 |psc-rass-loader|`1.0.1`|
 |psc-extract|`0.1.0`|
+|psc-admin-portal|`1.0.0`|
 
 
 ### 1.1.4
