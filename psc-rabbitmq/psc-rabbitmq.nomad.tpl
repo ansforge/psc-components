@@ -248,7 +248,7 @@ EOF
         check {
           name         = "alive"
           type         = "http"
-          path         = "/rabbitmq/"
+          path         = "/portal/tool/rabbitmq/"
           interval     = "30s"
           timeout      = "2s"
           failures_before_critical = 5
