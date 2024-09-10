@@ -83,6 +83,6 @@ variable "image" {
 
 variable "tag" {
   type = string
-  default = "2.51.0"
+  default = "v2.51.0"
 }
 
