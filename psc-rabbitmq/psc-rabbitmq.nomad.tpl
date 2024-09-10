@@ -244,7 +244,7 @@ EOF
       service {
         name = "$\u007BNOMAD_NAMESPACE\u007D-$\u007BNOMAD_JOB_NAME\u007D-management"
         port = "management"
-        tags = ["urlprefix-$\u007BPUBLIC_HOSTNAME\u007D/rabbitmq/"]
+        tags = ["urlprefix-$\u007BPUBLIC_HOSTNAME\u007D/portal/tool/rabbitmq/"]
         check {
           name         = "alive"
           type         = "http"
