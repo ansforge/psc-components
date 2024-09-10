@@ -14,14 +14,18 @@ Give this new distribution a semantic version number based on what changed (new 
 
 This version adds the necessary change for the administration portal :
 - Using fixed prometheus & alertmanager version to be able to rely on alertmanager's v2 API.
+- Adjusting kibana, prometheus and rabbitMQ(management UI) configuration to make them avaiable through the administration portal
+- Switching to new versions of psc-ps-api & psc-toggle-manager to support the new toggle remove feature.
+- Switching to psc-amar-connector 1.1.0 to add the endpoint used to get feedback about ongoing message processing.
+- Switching to psc-extract 0.2.0 to add the status reporting and test file upload endpoints
 
 |Component|Version|
 |---------|-------|
-|psc-ps-api|`2.0.1`|
-|psc-amar-connector|`1.0.3`|
-|psc-toggle-manager|`0.0.2`|
+|psc-ps-api|`2.1.0`|
+|psc-amar-connector|`1.1.0`|
+|psc-toggle-manager|`0.1.0`|
 |psc-rass-loader|`1.0.1`|
-|psc-extract|`0.1.0`|
+|psc-extract|`0.2.0`|
 |psc-admin-portal|`1.0.0`|
 
 
