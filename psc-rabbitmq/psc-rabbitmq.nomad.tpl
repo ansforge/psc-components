@@ -244,11 +244,10 @@ EOF
       service {
         name = "$\u007BNOMAD_NAMESPACE\u007D-$\u007BNOMAD_JOB_NAME\u007D-management"
         port = "management"
-        tags = ["urlprefix-$\u007BPUBLIC_HOSTNAME\u007D/rabbitmq/"]
         check {
           name         = "alive"
           type         = "http"
-          path         = "/rabbitmq/"
+          path         = "/portal/tool/rabbitmq/"
           interval     = "30s"
           timeout      = "2s"
           failures_before_critical = 5
