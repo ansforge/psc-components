@@ -30,9 +30,22 @@ This version adds the necessary change for the administration portal :
 |psc-admin-portal|`1.0.0`|
 
 
-### 1.1.5
+### 1.1.6
 
 This version backports version control over mongodb (7.0.x) and mongoexpress (1.0.x).
+
+|Component|Version|
+|---------|-------|
+|psc-ps-api|`2.0.1`|
+|psc-amar-connector|`1.0.3`|
+|psc-toggle-manager|`0.0.2`|
+|psc-rass-loader|`1.0.1`|
+|psc-extract|`0.1.0`|
+
+
+### 1.1.5
+
+This version fixes a broken prometheus docker image tag format.
 
 |Component|Version|
 |---------|-------|
