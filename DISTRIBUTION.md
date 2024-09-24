@@ -10,7 +10,7 @@ Give this new distribution a semantic version number based on what changed (new 
 
 ### 1.2.0
 
-**NB** : these version number and entry content are provisional,  as 1.2.0 has not been released yet, as of 2024/05/22
+**NB** : these version number and entry content are provisional,  as 1.2.0 has not been released yet, as of 2024/09/20
 
 This version adds the necessary change for the administration portal :
 - Using fixed prometheus & alertmanager version to be able to rely on alertmanager's v2 API.
@@ -18,6 +18,7 @@ This version adds the necessary change for the administration portal :
 - Switching to new versions of psc-ps-api & psc-toggle-manager to support the new toggle remove feature.
 - Switching to psc-amar-connector 1.1.0 to add the endpoint used to get feedback about ongoing message processing.
 - Switching to psc-extract 0.2.0 to add the status reporting and test file upload endpoints
+- Locking major & minor versions of mongodb & mongo-express at respectively 7.0 and 1.0 to ensure reliability.
 
 |Component|Version|
 |---------|-------|
@@ -27,6 +28,19 @@ This version adds the necessary change for the administration portal :
 |psc-rass-loader|`1.0.1`|
 |psc-extract|`0.2.0`|
 |psc-admin-portal|`1.0.0`|
+
+
+### 1.1.5
+
+This version backports version control over mongodb (7.0.x) and mongoexpress (1.0.x).
+
+|Component|Version|
+|---------|-------|
+|psc-ps-api|`2.0.1`|
+|psc-amar-connector|`1.0.3`|
+|psc-toggle-manager|`0.0.2`|
+|psc-rass-loader|`1.0.1`|
+|psc-extract|`0.1.0`|
 
 
 ### 1.1.4
