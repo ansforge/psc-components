@@ -8,6 +8,71 @@ Give this new distribution a semantic version number based on what changed (new 
 
 ## History
 
+### 1.1.6
+
+This version backports version control over mongodb (7.0.x) and mongoexpress (1.0.x).
+
+|Component|Version|
+|---------|-------|
+|psc-ps-api|`2.0.1`|
+|psc-amar-connector|`1.0.3`|
+|psc-toggle-manager|`0.0.2`|
+|psc-rass-loader|`1.0.1`|
+|psc-extract|`0.1.0`|
+
+
+### 1.1.5
+
+This version fixes a broken prometheus docker image tag format.
+
+|Component|Version|
+|---------|-------|
+|psc-ps-api|`2.0.1`|
+|psc-amar-connector|`1.0.3`|
+|psc-toggle-manager|`0.0.2`|
+|psc-rass-loader|`1.0.1`|
+|psc-extract|`0.1.0`|
+
+
+### 1.1.4
+
+This version deploys a fixed version of psc-amar-connector to properly replicate main identity data into otehrId identities in AMAR. Released on 2024/07/25.
+
+|Component|Version|
+|---------|-------|
+|psc-ps-api|`2.0.1`|
+|psc-amar-connector|`1.0.3`|
+|psc-toggle-manager|`0.0.2`|
+|psc-rass-loader|`1.0.1`|
+|psc-extract|`0.1.0`|
+
+
+### 1.1.3
+
+This version deploys a fixed version of psc-amar-connector to avoid rejection PS with no first name create/update operations by AMAR. Released on 2024/07/12.
+
+|Component|Version|
+|---------|-------|
+|psc-ps-api|`2.0.1`|
+|psc-amar-connector|`1.0.2`|
+|psc-toggle-manager|`0.0.2`|
+|psc-rass-loader|`1.0.1`|
+|psc-extract|`0.1.0`|
+
+
+### 1.1.2
+
+This version deploys a fixed version of psc-amar-connector to avoid rejection of some PS create/update operations by AMAR. Released on 2024/07/11.
+
+|Component|Version|
+|---------|-------|
+|psc-ps-api|`2.0.1`|
+|psc-amar-connector|`1.0.1`|
+|psc-toggle-manager|`0.0.2`|
+|psc-rass-loader|`1.0.1`|
+|psc-extract|`0.1.0`|
+
+
 ### 1.1.1
 
 This version adds fixed prometheus & alertmanager version to be able to rely on alertmanager's v2 API.
@@ -24,7 +89,7 @@ This doesn't change used versions, we record and stabilize current versions.
 ### 1.1.0
 
 Adding a sha256 digest to all archives produced by psc-extract to allow the downloader
-to check extract interity after downloading and unzipping it. Released on 2024/04/25.
+to check extract integrity after downloading and unzipping it. Released on 2024/04/25.
 
 
 |Component|Version|
