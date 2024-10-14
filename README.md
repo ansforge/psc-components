@@ -5,7 +5,8 @@ A suite of deployment scripts for the many components (message broker, DBs, prom
 ## Test in dev instances
 
 To avoid confusion, waypoint projects should be left to point to their environement branch.
-However, to test a specific version in development, another reference may be deployed by adding `-remote-source=ref=<gitref>`
+However, to test a specific version in the dev instance, 
+another reference may be deployed by adding `-remote-source=ref=<gitref>`
 to the `waypoint up` command. For example, to test main in developement :
 
 `waypoint up -local=false -remote-source=ref=main`
