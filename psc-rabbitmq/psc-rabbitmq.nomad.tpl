@@ -80,10 +80,10 @@ job "psc-rabbitmq" {
       }
       template {
         data = <<EOH
-RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS = "-rabbitmq_management path_prefix \"/rabbitmq\""
+RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS = "-rabbitmq_management path_prefix \"/portal/tool/rabbitmq\""
 RABBITMQ_DEFAULT_USER="{{ with secret "psc-ecosystem/${nomad_namespace}/rabbitmq" }}{{ .Data.data.user }}{{ end }}"
 RABBITMQ_DEFAULT_PASS="{{ with secret "psc-ecosystem/${nomad_namespace}/rabbitmq" }}{{ .Data.data.password }}{{ end }}"
-PUBLIC_HOSTNAME="{{ with secret "psc-ecosystem/${nomad_namespace}/admin" }}{{ .Data.data.admin_public_hostname }}{{ end }}"
+PUBLIC_HOSTNAME="{{ with secret "psc-ecosystem/${nomad_namespace}/admin-portal" }}{{ .Data.data.hostname }}{{ end }}"
 EOH
         destination = "secrets/file.env"
         env = true
@@ -244,11 +244,10 @@ EOF
       service {
         name = "$\u007BNOMAD_NAMESPACE\u007D-$\u007BNOMAD_JOB_NAME\u007D-management"
         port = "management"
-        tags = ["urlprefix-$\u007BPUBLIC_HOSTNAME\u007D/rabbitmq/"]
         check {
           name         = "alive"
           type         = "http"
-          path         = "/rabbitmq/"
+          path         = "/portal/tool/rabbitmq/"
           interval     = "30s"
           timeout      = "2s"
           failures_before_critical = 5

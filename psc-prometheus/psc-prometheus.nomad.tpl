@@ -49,8 +49,8 @@ job "psc-prometheus" {
         image = "${image}:${tag}"
         args = [
           "--config.file=/local/prometheus.yml",
-          "--web.external-url=https://$\u007BPUBLIC_HOSTNAME\u007D/psc-prometheus/",
-          "--web.route-prefix=/psc-prometheus",
+          "--web.external-url=https://$\u007BPUBLIC_HOSTNAME\u007D/portal/tool/prometheus/",
+          "--web.route-prefix=/portal/tool/prometheus/",
           "--storage.tsdb.path=/alloc/data/",
           "--storage.tsdb.retention.time=30d",
           "--web.listen-address=0.0.0.0:9090",
@@ -174,20 +174,18 @@ EOH
         destination = "local/file.env"
         env = true
         data = <<EOF
-PUBLIC_HOSTNAME={{ with secret "psc-ecosystem/${nomad_namespace}/admin" }}{{ .Data.data.admin_public_hostname }}{{ end }}
+PUBLIC_HOSTNAME={{ with secret "psc-ecosystem/${nomad_namespace}/admin-portal" }}{{ .Data.data.hostname }}{{ end }}
 EOF
       }
 
       service {
         name = "$\u007BNOMAD_NAMESPACE\u007D-$\u007BNOMAD_JOB_NAME\u007D"
-        tags = [
-          "urlprefix-$\u007BPUBLIC_HOSTNAME\u007D/psc-prometheus/"]
         port = "ui"
 
         check {
           name = "prometheus port alive"
           type = "http"
-          path = "/psc-prometheus/-/healthy"
+          path = "/portal/tool/prometheus/-/healthy"
           interval = "30s"
           timeout = "2s"
           failures_before_critical = 5
