@@ -9,6 +9,22 @@ Give this new distribution a semantic version number based on what changed (new 
 ## History
 
 
+### 1.2.1
+
+This version fixes the following bugs :
+- The shovel_management plugin is not enabled in rabbitMQ and should be 
+for dead letter queue replays.
+
+|Component| Version |
+|---------|---------|
+|psc-ps-api| `2.1.0` |
+|psc-amar-connector| `1.1.2` |
+|psc-toggle-manager| `0.1.0` |
+|psc-rass-loader| `1.1.1` |
+|psc-extract| `0.2.0` |
+|psc-admin-portal| `1.0.0` |
+
+
 ### 1.2.0
 
 This version adds the necessary change for the administration portal :
