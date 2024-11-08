@@ -95,7 +95,7 @@ EOH
 management.tcp.port = 15672
 EOF
       }
-      #template {
+      #template { # TODO : this dead code should die...
       #  change_mode = "restart"
       #  destination = "local/definitions.json"
       #  data = <<EOF
