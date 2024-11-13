@@ -14,10 +14,12 @@ Give this new distribution a semantic version number based on what changed (new 
 This version fixes the following bugs :
 - The shovel_management plugin is not enabled in rabbitMQ and should be 
 for dead letter queue replays.
+- We need to deploy a patched version of psc-ps-api to successfully get PS data 
+  when the PS id contains slash (`/`) characters.
 
 |Component| Version |
 |---------|---------|
-|psc-ps-api| `2.1.0` |
+|psc-ps-api| `2.1.1` |
 |psc-amar-connector| `1.1.2` |
 |psc-toggle-manager| `0.1.0` |
 |psc-rass-loader| `1.1.1` |
