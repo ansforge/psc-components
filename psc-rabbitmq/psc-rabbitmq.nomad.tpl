@@ -68,6 +68,15 @@ job "psc-rabbitmq" {
             propagation = "rshared"
           }
         }
+        mount {
+          type = "bind"
+          target = "/etc/rabbitmq/enabled_plugins"
+          source = "local/enabled_plugins"
+          readonly = false
+          bind_options {
+            propagation = "rshared"
+          }
+        }
         #mount {
         #  type = "bind"
         #  target = "/etc/rabbitmq/definitions.json"
@@ -80,10 +89,10 @@ job "psc-rabbitmq" {
       }
       template {
         data = <<EOH
-RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS = "-rabbitmq_management path_prefix \"/rabbitmq\""
+RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS = "-rabbitmq_management path_prefix \"/portal/tool/rabbitmq\""
 RABBITMQ_DEFAULT_USER="{{ with secret "psc-ecosystem/${nomad_namespace}/rabbitmq" }}{{ .Data.data.user }}{{ end }}"
 RABBITMQ_DEFAULT_PASS="{{ with secret "psc-ecosystem/${nomad_namespace}/rabbitmq" }}{{ .Data.data.password }}{{ end }}"
-PUBLIC_HOSTNAME="{{ with secret "psc-ecosystem/${nomad_namespace}/admin" }}{{ .Data.data.admin_public_hostname }}{{ end }}"
+PUBLIC_HOSTNAME="{{ with secret "psc-ecosystem/${nomad_namespace}/admin-portal" }}{{ .Data.data.hostname }}{{ end }}"
 EOH
         destination = "secrets/file.env"
         env = true
@@ -95,7 +104,16 @@ EOH
 management.tcp.port = 15672
 EOF
       }
-      #template {
+      
+      template {
+        change_mode = "restart"
+        destination = "local/enabled_plugins"
+        data = <<EOF
+[rabbitmq_management,rabbitmq_prometheus,rabbitmq_shovel_management].
+EOF
+      }
+      
+      #template { # TODO : this dead code should die...
       #  change_mode = "restart"
       #  destination = "local/definitions.json"
       #  data = <<EOF
@@ -244,11 +262,10 @@ EOF
       service {
         name = "$\u007BNOMAD_NAMESPACE\u007D-$\u007BNOMAD_JOB_NAME\u007D-management"
         port = "management"
-        tags = ["urlprefix-$\u007BPUBLIC_HOSTNAME\u007D/rabbitmq/"]
         check {
           name         = "alive"
           type         = "http"
-          path         = "/rabbitmq/"
+          path         = "/portal/tool/rabbitmq/"
           interval     = "30s"
           timeout      = "2s"
           failures_before_critical = 5
